@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+psycopg2 = "*"
+python-decouple = "*"
+
+[dev-packages]
+autopep8 = "*"
+pep8 = "*"
+pylint = "*"
+pylint-django = "*"
+pytest-django = "*"
+isort = "*"
+docformatter = "*"
+
+[requires]
+python_version = "3.8"
