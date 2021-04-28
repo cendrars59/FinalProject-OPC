@@ -16,6 +16,7 @@ pylint-django = "*"
 pytest-django = "*"
 isort = "*"
 docformatter = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.8"
