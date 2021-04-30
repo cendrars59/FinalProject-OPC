@@ -130,6 +130,16 @@ dmypy.json
 # VSCode
 .vscode/ 
 
+# Pycharm
+.idea/
+
+# Edge driver
+egdedriver/
+
 
 
 db.sqlite3
+
+# Excluding bootstrap src
+src/
+node_modules/
