@@ -16,9 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from pages import views
+from django.conf.urls.static import static  # Used only for dev purpose.
+from django.conf import settings  # Used only for dev purpose.
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('information', views.information, name='information'),
     path('legal', views.legal, name='legal'),
 ]
+
+# In context of dev (Debug is set) the following configuration will be applied
+# Because using the django application we need to emulate a real server sttings
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

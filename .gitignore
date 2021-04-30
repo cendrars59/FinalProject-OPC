@@ -131,7 +131,11 @@ dmypy.json
 .vscode/ 
 
 # Pycharm
-.idea/
+.idea/.
+.idea/FinalProject.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
 
 # Edge driver
 egdedriver/
@@ -141,5 +145,6 @@ egdedriver/
 db.sqlite3
 
 # Excluding bootstrap src
-src/
-node_modules/
+dist/src/
+dist/node_modules/
+dist/docs

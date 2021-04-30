@@ -14,6 +14,5 @@ def legal(request):
 
 
 def home(request):
-    # function the club information page
-    # all the information into are static
+    # Temp home page
     return render(request, "pages/home.html")
