@@ -145,6 +145,6 @@ egdedriver/
 db.sqlite3
 
 # Excluding bootstrap src
-dist/src/
-dist/node_modules/
-dist/docs
+static/src/
+static/node_modules/
+static/docs/
