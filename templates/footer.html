@@ -1,0 +1,19 @@
+{% load static %}
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row text-muted">
+            <div class="col-8 text-start">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="{% url 'legal' %}">Legal</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4 text-end">
+                <p class="mb-0">
+                    &copy; 2020 - <a href="{% url 'home' %}" class="text-muted">Spark</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
