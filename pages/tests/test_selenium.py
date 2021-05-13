@@ -1,11 +1,18 @@
 import pytest
-from django.test import LiveServerTestCase  # Use to run a websrver for testing purpose.
-from selenium import webdriver
 
 
-class TestPages(LiveServerTestCase):
+@pytest.mark.usefixtures("driver_init")
+class TestPages:
 
-    def test_example(self):
-        driver = webdriver.Chrome()
-        driver.get(("%s%s" % (self.live_server_url, "/legal")))
-        assert "Mentions légales" in driver.title
+    def test_example(self, live_server):
+
+        self.driver.get(("%s%s" % (live_server.url, "/legal")))
+
+        assert "Mentions légales" in self.driver.title
+        assert self.driver.find_element_by_id("legal-p1").text != ""
+        assert self.driver.find_element_by_id("legal-p2").text != ""
+        assert self.driver.find_element_by_id("legal-p3").text != ""
+        assert self.driver.find_element_by_id("legal-p4").text != ""
+        assert self.driver.find_element_by_id("legal-p5").text != ""
+        assert self.driver.find_element_by_id("legal-p6").text != ""
+        assert self.driver.find_element_by_id("legal-p7").text != ""
