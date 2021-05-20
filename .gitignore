@@ -42,6 +42,7 @@ htmlcov/
 .nox/
 .coverage
 .coverage.*
+.coveragerc
 .cache
 nosetests.xml
 coverage.xml
@@ -137,8 +138,8 @@ dmypy.json
 .idea/vcs.xml
 .idea/workspace.xml
 
-# Edge driver
-egdedriver/
+# Selenium drivers
+drivers/
 
 
 
