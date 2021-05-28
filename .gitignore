@@ -146,6 +146,6 @@ drivers/
 db.sqlite3
 
 # Excluding bootstrap src
-static/src/
-node_modules/
-/static/docs/
+**/static/node_modules/
+**/static/docs/
+**/static/src/
