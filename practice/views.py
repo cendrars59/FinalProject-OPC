@@ -1,7 +1,8 @@
 from practice.models import Practice
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.db.models import Q  # used to generate search request
+from practice.forms import AddForm
 
 # Create your views here.
 
@@ -19,6 +20,7 @@ class PracticeListView(ListView):
 
         Returns:
             Practice: returning a list of practice according the query content 
+            or all practices if no query 
         """
         query = self.request.GET.get('q')
         if query is not None:
@@ -32,5 +34,11 @@ class PracticeListView(ListView):
 class PracticeDetailView(DetailView):
 
     model = Practice
+
+class PracticeCreateView(CreateView):
+
+    model = Practice
+    form_class = AddForm
+    success_url = '/practices/'
 
 

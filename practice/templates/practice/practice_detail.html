@@ -3,13 +3,16 @@
 
 
 {% block title %} En détail : {{object.label}} {% endblock title%}
-{% block page-title %} En détail : {{object.label}} {% endblock page-title %}
+{% block page-title %} En détail : {{object.label|safe}} {% endblock page-title %}
 {% block content-main %}
 
 <div class="card-header">
+    <a href="{% url 'practices-list' %}">
+        <button class="btn btn-primary">Retour à la liste</button>
+    </a>  
 </div>
 <div class="card-body">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-lg-10">
         <div class="tab tab-vertical">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
@@ -20,16 +23,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#vertical-icon-tab-2" data-bs-toggle="tab" role="tab">
                         <i class="align-middle" data-feather="award">Compétences</i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#vertical-icon-tab-3" data-bs-toggle="tab" role="tab">
-                        <i class="align-middle" data-feather="image">Images</i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#vertical-icon-tab-4" data-bs-toggle="tab" role="tab">
-                        <i class="align-middle" data-feather="video">Vidéos</i>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -46,32 +39,44 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="vertical-icon-tab-1" role="tabpanel">
                     <h4 class="tab-title">Description</h4>
-                    {{object.description}}
-                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
-                        justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                        justo.</p>
+                    {{object.description|safe}}
+                    <h4 class="tab-title">Applicable pour les catégories suivantes</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:90%;">Catégorie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in object.categories.all %}
+                            <tr>
+                                <td>
+                                    {{category.label|title|safe}}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <p>Pas de catégories associées à cette exercice</p>
+                            <p>Alors à quoi sert il ?</p>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tab-pane" id="vertical-icon-tab-2" role="tabpanel">
                     <h4 class="tab-title">Compétences visées</h4>
-                    <p>Liste des competences</p>
-                </div>
-                <div class="tab-pane" id="vertical-icon-tab-3" role="tabpanel">
-                    <h4 class="tab-title">Images</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor tellus eget condimentum
-                        rhoncus. Aenean massa. Cum sociis natoque penatibus et magnis neque dis parturient montes, nascetur ridiculus mus.
-                        In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
-                        justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                        justo.</p>
-                </div>
-                <div class="tab-pane" id="vertical-icon-tab-4" role="tabpanel">
-                    <h4 class="tab-title">Vidéos</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor tellus eget condimentum
-                        rhoncus. Aenean massa. Cum sociis natoque penatibus et magnis neque dis parturient montes, nascetur ridiculus mus.
-                        In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
-                        justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                        justo.</p>
+                    <table class="table table-striped">
+                        <tbody>
+                            {% for skill in object.skills.all %}
+                            <tr>
+                                <td>
+                                    {{skill.label|title|safe}}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <p>Pas de compétences associées à cette exercice</p>
+                            <p>Alors à quoi sert il ?</p>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

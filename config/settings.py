@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Please see the following page for usage of widget_tweaks
+    # https://github.com/jazzband/django-widget-tweaks
+    'widget_tweaks',
+    # Please see the following page for usage of ckeditor
+    # https://pytutorial.com/django-ckeditor
+    'ckeditor',
+    'ckeditor_uploader',
     'pages',
     'club',
     'practice',
@@ -143,6 +150,10 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 # defining the directory where the media files are located
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Please see the following page for usage of ckeditor
+# https://pytutorial.com/django-ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

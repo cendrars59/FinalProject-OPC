@@ -4,6 +4,7 @@
     </div>
     <div class="card-body">
         <form action="{% url 'practices-list' %}" method="get" class="row row-cols-md-auto align-items-center">
+            {% csrf_token %}
             <div class="col-12">
                 <label class="visually-hidden" for="inlineFormInputName2">Titre de l'exercice</label>
                 <input name="q" type="text" class="form-control mb-1 me-sm-1" id="inlineFormInputName2"

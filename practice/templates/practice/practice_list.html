@@ -5,13 +5,15 @@
 {% block title %} Liste d'exercices {% endblock title%}
 {% block page-title %} Liste d'exercices {% endblock page-title %}
 {% block content-main %}
-
 <div class="card-header">
+    <a href="{% url 'practices-list' %}">
+        <button class="btn btn-primary">Retour à la liste</button>
+    </a>  
+</div>
+<div class="card-body">
     {% include "practice/search_form.html" %}
     {% include "practice/table-list.html" %}
     {% include "practice/paginator.html" %}
-</div>
-<div class="card-body">
     <div class="my-5">&nbsp;</div>
 </div>
 

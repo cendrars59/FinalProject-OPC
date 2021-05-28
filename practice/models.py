@@ -1,4 +1,5 @@
 import uuid
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from club.models import Category
 
@@ -24,13 +25,13 @@ class Practice(models.Model):
 
     code = models.UUIDField(default=uuid.uuid4)
     label = models.CharField(verbose_name='Titre', max_length=255)
-    #description = RichTextUploadingField(verbose_name='Description', blank=True, null=True)
-    description = models.TextField(verbose_name='Description', null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+    description = RichTextUploadingField(verbose_name='Description', blank=True, null=True)
+    #description = models.TextField(verbose_name='Description', null=True, blank=True)
+    is_active = models.BooleanField(verbose_name='Activé', default=True)
     # date_posted = models.DateTimeField(default=timezone.now)
     # author = models.ForeignKey(User, on_delete=models.CASCADE)
-    categories = models.ManyToManyField(Category)
-    skills = models.ManyToManyField(Skill)
+    categories = models.ManyToManyField(Category, verbose_name='Liste des catégories')
+    skills = models.ManyToManyField(Skill, verbose_name='Liste des compétences')
 
     class Meta:
         verbose_name = "practice"
