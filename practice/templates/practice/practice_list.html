@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} Liste d'exercices {% endblock title%}
+{% block page-title %} Liste d'exercices {% endblock page-title %}
+{% block content-main %}
+
+<div class="card-header">
+    {% include "practice/search_form.html" %}
+    {% include "practice/table-list.html" %}
+    {% include "practice/paginator.html" %}
+</div>
+<div class="card-body">
+    <div class="my-5">&nbsp;</div>
+</div>
+
+{% endblock content-main %}

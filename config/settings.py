@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     'club',
+    'practice',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +138,10 @@ STATICFILES_DIRS = [
 
 
 # Media files (Loaded media from application)
+
+# relative url path to access to the media files
 MEDIA_URL = '/media/'
+# defining the directory where the media files are located
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type

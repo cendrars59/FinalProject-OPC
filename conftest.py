@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
 from club.models import Category, EventType, Season, Division, Club
+from practice.models import Practice, Skill
 
 
 @pytest.fixture(params=["chrome1920", "chrome411"])
@@ -160,3 +161,28 @@ def division1(db):
     division = Division.objects.create(code='Division-Dummy-Code', label='Division-dummy_label',
                                        description='Division dummy description')
     return division
+
+
+@pytest.fixture()
+def practice1(db):
+    """
+        This fixture is used to generate a dummy valid practice for Practice model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    practice = Practice.objects.create(label='bobo toto', description='practice dummy_description1')
+    practice.save()
+    return practice
+
+
+@pytest.fixture()
+def skill1(db):
+    """
+        This fixture is used to generate a dummy valid event_type for Season model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    skill = Skill.objects.create(label='Skill-dummy_label1',
+                                 description='Skill dummy description1')
+    skill.save()
+    return skill

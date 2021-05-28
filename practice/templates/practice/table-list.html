@@ -1,0 +1,32 @@
+<a href="#"><i class="align-middle fas fa-fw fa-plus"></i> Créer un nouvel exercice ici</a>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:50%;">Nom</th>
+            <th style="width:40%">Catégorie</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for practice in object_list %}
+        <tr>
+            <td><a href="{% url 'practice-detail' pk=practice.id %}"><i class="fas fa-fw fa-eye"></i> {{ practice.label|title }}</a></td>
+
+            <td>{% for category in practice.categories.all %}
+                {{category.label|title}}
+                {% empty %}
+                Non définie
+                {% endfor %}
+            </td>
+            <td class="table-action">
+                <a href="#"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+                <a href="#"><i class="align-middle fas fa-fw fa-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <p>Pas d'exercices de disponibles</p>
+        <p>Il serait temps de créer le votre</p>
+        {% endfor %}
+    </tbody>
+</table>

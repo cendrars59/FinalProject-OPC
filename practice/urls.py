@@ -14,17 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from practice import views
 from django.conf.urls.static import static  # Used only for dev purpose.
 from django.conf import settings  # Used only for dev purpose.
-from pages import views, urls
-from practice import views, urls
-
+from practice.views import PracticeListView, PracticeDetailView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('pages.urls')),
-    path('practices/', include('practice.urls')),
+    path('', PracticeListView.as_view(), name='practices-list'),
+    path('<pk>/', PracticeDetailView.as_view(), name='practice-detail'),
 ]
 
 # In context of dev (Debug is set) the following configuration will be applied

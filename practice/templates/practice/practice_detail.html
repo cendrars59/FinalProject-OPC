@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} En détail : {{object.label}} {% endblock title%}
+{% block page-title %} En détail : {{object.label}} {% endblock page-title %}
+{% block content-main %}
+
+<div class="card-header">
+</div>
+<div class="card-body">
+    <div class="col-12 col-lg-8">
+        <div class="tab tab-vertical">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#vertical-icon-tab-1" data-bs-toggle="tab" role="tab">
+                        <i class="align-middle" data-feather="home">Description</i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#vertical-icon-tab-2" data-bs-toggle="tab" role="tab">
+                        <i class="align-middle" data-feather="award">Compétences</i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#vertical-icon-tab-3" data-bs-toggle="tab" role="tab">
+                        <i class="align-middle" data-feather="image">Images</i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#vertical-icon-tab-4" data-bs-toggle="tab" role="tab">
+                        <i class="align-middle" data-feather="video">Vidéos</i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="align-middle" data-feather="more-horizontal"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="tab" role="tab">
+                        <i class="align-middle fas fa-fw fa-pen"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="vertical-icon-tab-1" role="tabpanel">
+                    <h4 class="tab-title">Description</h4>
+                    {{object.description}}
+                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
+                        justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+                        justo.</p>
+                </div>
+                <div class="tab-pane" id="vertical-icon-tab-2" role="tabpanel">
+                    <h4 class="tab-title">Compétences visées</h4>
+                    <p>Liste des competences</p>
+                </div>
+                <div class="tab-pane" id="vertical-icon-tab-3" role="tabpanel">
+                    <h4 class="tab-title">Images</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor tellus eget condimentum
+                        rhoncus. Aenean massa. Cum sociis natoque penatibus et magnis neque dis parturient montes, nascetur ridiculus mus.
+                        In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
+                        justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+                        justo.</p>
+                </div>
+                <div class="tab-pane" id="vertical-icon-tab-4" role="tabpanel">
+                    <h4 class="tab-title">Vidéos</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor tellus eget condimentum
+                        rhoncus. Aenean massa. Cum sociis natoque penatibus et magnis neque dis parturient montes, nascetur ridiculus mus.
+                        In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
+                        justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+                        justo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-5">&nbsp;</div>
+</div>
+
+{% endblock content-main %}
