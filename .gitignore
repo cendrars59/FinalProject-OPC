@@ -147,5 +147,5 @@ db.sqlite3
 
 # Excluding bootstrap src
 static/src/
-static/node_modules/
-static/docs/
+node_modules/
+/static/docs/
