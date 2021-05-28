@@ -3,25 +3,27 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width:50%;">Nom</th>
-            <th style="width:40%">Catégorie</th>
             <th>Actions</th>
+            <th style="width:40%;">Nom</th>
+            <th style="width:40%">Catégorie</th>
+            
         </tr>
     </thead>
     <tbody>
         {% for practice in object_list %}
         <tr>
-            <td><a href="{% url 'practice-detail' pk=practice.id %}"><i class="fas fa-fw fa-eye"></i> {{ practice.label|title }}</a></td>
+            <td class="table-action">
+                <a href="{% url 'practice-detail' pk=practice.id %}"><i class="fas fa-fw fa-eye"></i></a>
+                <a href="{% url 'practice-update' pk=practice.id %}"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+                
+            </td>
+            <td>{{ practice.label|title|safe }}</td>
 
             <td>{% for category in practice.categories.all %}
-                {{category.label|title}}
+                {{category.label|title|safe}}
                 {% empty %}
                 Non définie
                 {% endfor %}
-            </td>
-            <td class="table-action">
-                <a href="#"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
-                <a href="#"><i class="align-middle fas fa-fw fa-trash"></i></a>
             </td>
         </tr>
         {% empty %}

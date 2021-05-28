@@ -1,6 +1,6 @@
 from practice.models import Practice
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q  # used to generate search request
 from practice.forms import AddForm
 
@@ -36,6 +36,12 @@ class PracticeDetailView(DetailView):
     model = Practice
 
 class PracticeCreateView(CreateView):
+
+    model = Practice
+    form_class = AddForm
+    success_url = '/practices/'
+
+class PracticeUpdateView(UpdateView):
 
     model = Practice
     form_class = AddForm

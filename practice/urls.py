@@ -18,12 +18,14 @@ from django.urls import path
 from practice import views
 from django.conf.urls.static import static  # Used only for dev purpose.
 from django.conf import settings  # Used only for dev purpose.
-from practice.views import PracticeListView, PracticeDetailView, PracticeCreateView
+from practice.views import (PracticeListView,
+PracticeDetailView, PracticeCreateView, PracticeUpdateView)
 
 urlpatterns = [
     path('', PracticeListView.as_view(), name='practices-list'),
     path('new/', PracticeCreateView.as_view(), name='practice-new'),
     path('<pk>/', PracticeDetailView.as_view(), name='practice-detail'),
+    path('<pk>/update', PracticeUpdateView.as_view(), name='practice-update'),
 ]
 
 # In context of dev (Debug is set) the following configuration will be applied
