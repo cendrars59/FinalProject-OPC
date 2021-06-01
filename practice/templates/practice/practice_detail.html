@@ -26,12 +26,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#vertical-icon-tab-3" data-bs-toggle="tab" role="tab">
+                        <i class="align-middle" data-feather="user-check">Catégories</i>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link">
                         <i class="align-middle" data-feather="more-horizontal"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'practice-update' pk=practice.id %}" data-bs-toggle="tab" role="tab">
+                    <a class="nav-link" href="{% url 'practice-update' pk=practice.id %}"  >
                         <i class="align-middle fas fa-fw fa-pen"></i>
                     </a>
                 </li>
@@ -40,6 +45,26 @@
                 <div class="tab-pane active" id="vertical-icon-tab-1" role="tabpanel">
                     <h4 class="tab-title">Description</h4>
                     {{object.description|safe}}
+                    
+                </div>
+                <div class="tab-pane" id="vertical-icon-tab-2" role="tabpanel">
+                    <h4 class="tab-title">Compétences visées</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                            {% for skill in object.skills.all %}
+                            <tr>
+                                <td>
+                                    {{skill.label|title|safe}}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <p>Pas de compétences associées à cette exercice</p>
+                            <p>Alors à quoi sert il ?</p>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="vertical-icon-tab-3" role="tabpanel">
                     <h4 class="tab-title">Applicable pour les catégories suivantes</h4>
                     <table class="table table-striped">
                         <thead>
@@ -56,23 +81,6 @@
                             </tr>
                             {% empty %}
                             <p>Pas de catégories associées à cette exercice</p>
-                            <p>Alors à quoi sert il ?</p>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane" id="vertical-icon-tab-2" role="tabpanel">
-                    <h4 class="tab-title">Compétences visées</h4>
-                    <table class="table table-striped">
-                        <tbody>
-                            {% for skill in object.skills.all %}
-                            <tr>
-                                <td>
-                                    {{skill.label|title|safe}}
-                                </td>
-                            </tr>
-                            {% empty %}
-                            <p>Pas de compétences associées à cette exercice</p>
                             <p>Alors à quoi sert il ?</p>
                             {% endfor %}
                         </tbody>
