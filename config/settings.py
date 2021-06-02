@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
     # Please see the following page for usage of widget_tweaks
     # https://github.com/jazzband/django-widget-tweaks
     'widget_tweaks',
@@ -159,3 +160,8 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# See documenation here 
+# https://docs.djangoproject.com/en/3.2/ref/settings/#logging
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'

@@ -14,17 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views # Used to mamage the authentification views provided by Django
 from django.urls import path, include
 from django.conf.urls.static import static  # Used only for dev purpose.
 from django.conf import settings  # Used only for dev purpose.
 from pages import views, urls
 from practice import views, urls
+from users import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # template name is used in order to not use the default path set by Django to grab the template
+    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('', include('pages.urls')),
+    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('practices/', include('practice.urls')),
 ]
 
