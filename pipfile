@@ -10,6 +10,8 @@ python-decouple = "*"
 pytest = "*"
 django-widget-tweaks = "*"
 django-ckeditor = "*"
+install = "*"
+django-countries = "*"
 
 [dev-packages]
 autopep8 = "*"

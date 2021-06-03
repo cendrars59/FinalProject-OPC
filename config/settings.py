@@ -165,3 +165,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#logging
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
+
+AUTH_USER_MODEL = 'users.USER'
