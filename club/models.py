@@ -39,6 +39,12 @@ class Season(models.Model):
         """
         return self.label
 
+    @classmethod
+    def get_active_season_label(cls):
+        active_season = cls.objects.get(is_current=True)
+        return active_season.label
+
+
 
 class Club(models.Model):
     code = models.CharField(unique=True, max_length=32)

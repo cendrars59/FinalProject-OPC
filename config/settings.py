@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
     # Please see the following page for usage of widget_tweaks
     # https://github.com/jazzband/django-widget-tweaks
     'widget_tweaks',
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     # https://pytutorial.com/django-ckeditor
     'ckeditor',
     'ckeditor_uploader',
+    'users',
     'pages',
     'club',
     'practice',
@@ -166,4 +166,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 
-AUTH_USER_MODEL = 'users.USER'
+AUTH_USER_MODEL = 'users.CustomUser'

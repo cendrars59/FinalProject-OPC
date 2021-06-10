@@ -21,12 +21,14 @@ from django.conf import settings  # Used only for dev purpose.
 from pages import views, urls
 from practice import views, urls
 from users import views
+from users.views import CustomUserUpdateView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # template name is used in order to not use the default path set by Django to grab the template
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('edit/<pk>', CustomUserUpdateView.as_view(), name='user-edit'),
     path('', include('pages.urls')),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('ckeditor/', include('ckeditor_uploader.urls')),

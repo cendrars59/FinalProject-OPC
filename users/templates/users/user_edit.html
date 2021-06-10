@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block title %} Votre compte {% endblock title%}
+{% block page-title %} Votre Compte {% endblock page-title %}
+{% block content-main %}
+<div class="card-header">   
+</div>
+<div class="card-body">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                    {% for field in form %}
+        
+                        <div class="mb-3">
+                            {{ field.errors }}
+                            <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                            {% if field.html_name != 'phone_for_whatsapp' %}
+                                {{ field|add_class:"form-control" }}
+                            {% endif %}
+                            {% if field.html_name == 'phone_for_whatsapp' %}
+                                {{ field|add_class:"form-check-input" }}
+                            {% endif %}      
+                            {% if field.help_text %}
+                                <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}
+                    
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="my-5">&nbsp;</div>
+</div>
+
+{% endblock content-main %}

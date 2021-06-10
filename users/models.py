@@ -1,28 +1,15 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.core.validators import RegexValidator
-from django.utils.translation import gettext_lazy as _ # About https://docs.djangoproject.com/fr/3.2/topics/i18n/translation/
 from django_countries.fields import CountryField # About https://pypi.org/project/django-countries/
 from django.core import validators
 from django.db import models
+from club.models import CategoryClubBySeason, Season
 
-class UserManager(BaseUserManager):
-    
-    def create_user(self, email, username, password , **other_fields):
-    # Method to manage user creation according the new fields
-    # not belonging to the orginal user model (Provided by Django)
+class CustomUserManager(BaseUserManager):
 
-        if not email:
-            raise ValueError(_('Vous devez fournir un email'))
+    def create_superuser(self, email, username, password, **other_fields):
 
-        email = self.normalize_email(email)
-        user = self.model(email=email, username=username,**other_fields)
-        user.set_password(password)
-        user.save()
-        return user
-
-    def create_superuser(self, email, username, password , **other_fields):
-        
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
@@ -36,12 +23,25 @@ class UserManager(BaseUserManager):
 
         return self.create_user(email, username, password, **other_fields)
 
+    def create_user(self, email, username, password, **other_fields):
 
-class User(AbstractBaseUser, PermissionsMixin):
+        if not email:
+            raise ValueError('Vous devez fournir un email')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, username=username,
+                          **other_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     # Email field that serves as the username field
-    email = models.CharField(
-        max_length = 50, 
+    email = models.EmailField(
+        max_length = 100, 
         unique = True, 
         validators = [validators.EmailValidator()],
         verbose_name = "Email"
@@ -56,7 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(
         max_length = 50,
-        verbose_name = "Prénom Name",
+        verbose_name = "Prénom",
     )
 
     last_name = models.CharField(
@@ -65,63 +65,67 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     date_of_birth = models.DateField(
-        verbose_name=_("Date of birth"),
+        verbose_name="Date de naissance",
         blank=True,
         null=True)
 
     address1 = models.CharField(
-        verbose_name=_("Addresse ligne 1"),
+        verbose_name="Addresse ligne 1",
         max_length=1024,
         blank=True,
         null=True)
 
     address2 = models.CharField(
-        verbose_name=_("Addresse ligne 2"),
+        verbose_name="Addresse ligne 2",
         max_length=1024,
         blank=True,
         null=True)
 
     zip_code = models.CharField(
-        verbose_name=_("Postal Code"),
+        verbose_name="Code postal",
         max_length=12,
         blank=True,
         null=True)
 
     city = models.CharField(
-        verbose_name=_("City"),
+        verbose_name="Ville",
         max_length=1024,
         blank=True,
         null=True)
 
     country = CountryField(
+        verbose_name="Pays",
         blank=True,
         null=True)
 
     phone_regex = RegexValidator(
         regex=r"^\+(?:[0-9]●?){6,14}[0-9]$",
-        message=_("Enter a valid international mobile phone number starting with +(country code)"))
+        message="Entrer un code international pour mobile commençant par +(country code) par +336")
 
     mobile_phone = models.CharField(
         validators=[phone_regex],
-        verbose_name=_("Téléphone mobile"),
+        verbose_name="Téléphone mobile",
         max_length=17,
         blank=True,
         null=True)
 
     phone_for_whatsapp = models.BooleanField(
-        verbose_name=_("A utiliser pour WhatsApp"),
+        verbose_name="A utiliser pour WhatsApp",
         default=False)
 
-    additional_information = models.CharField(
-        verbose_name=_("Information complémentaires"),
-        max_length=4096,
+    about = models.TextField(
+        verbose_name="Information complémentaires",
         blank=True,
         null=True)
 
-    # photo = models.ImageField(
-    #     verbose_name=_("Photo du membre"),
-    #     upload_to='photos/',
-    #     default='photos/default-user-avatar.png')
+    photo = models.ImageField(
+         verbose_name="Photo du membre",
+         upload_to='member_photos/',
+         default='photos/default-user-avatar.png')
+
+    
+    # to restrict the application to only people having framing function in the club
+    is_club_manager = models.BooleanField(default=False)
 
     # Other required fields for authentication
     # If the user is a staff, defaults to false
@@ -130,7 +134,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     # If the user account is active or not. Defaults to True.
     # If the value is set to false, user will not be allowed to sign in.
     is_active = models.BooleanField(default=True)
+
+    involed_in_categories = models.ManyToManyField(CategoryClubBySeason, blank=True, null=True)
     
+    objects = CustomUserManager()
     
     def get_full_name(self):
         # Returns the first_name and the last_name
@@ -146,6 +153,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username','password']
 
-    objects = UserManager()
+    
+
+    # def has_perm(self, perm, obj=None):
+    #     return True
+
+    # def has_module_perms(self, app_label):
+    #     return True
+
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('user-edit', kwargs={'pk' : self.pk})
+
+    

@@ -12,6 +12,7 @@ django-widget-tweaks = "*"
 django-ckeditor = "*"
 install = "*"
 django-countries = "*"
+pillow = "*"
 
 [dev-packages]
 autopep8 = "*"

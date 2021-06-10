@@ -3,11 +3,13 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q  # used to generate search request
 from practice.forms import AddForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
 
-class PracticeListView(ListView):
+class PracticeListView(LoginRequiredMixin, ListView):
     model = Practice
     paginate_by = 10
 
@@ -31,17 +33,17 @@ class PracticeListView(ListView):
             object_list = Practice.objects.all()  # In this case the query is empty
         return object_list
 
-class PracticeDetailView(DetailView):
+class PracticeDetailView(LoginRequiredMixin, DetailView):
 
     model = Practice
 
-class PracticeCreateView(CreateView):
+class PracticeCreateView(LoginRequiredMixin, CreateView):
 
     model = Practice
     form_class = AddForm
     success_url = '/practices/'
 
-class PracticeUpdateView(UpdateView):
+class PracticeUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Practice
     form_class = AddForm
