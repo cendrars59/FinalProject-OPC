@@ -16,7 +16,7 @@ addons:
 branches:
   only:
       - develop
-      - continous
+      - feature/continous
 
 # stuff to do before executing the script s
 install:
