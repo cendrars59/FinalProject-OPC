@@ -20,7 +20,6 @@ branches:
       
 install:
   pipenv install
-  pipenv install tchappui-webdrivers
   
 
 before_script:
