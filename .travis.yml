@@ -1,0 +1,42 @@
+language: python
+python:
+  - "3.8"
+
+init:
+    pip install pipenv
+    pipenv install
+    pipenv install --dev
+
+addons:
+  ## use chrome for Selenium 
+  chrome: stable
+  firefox: stable
+
+
+branches:
+  only:
+      - develop
+      - continous
+
+# stuff to do before executing the script s
+install:
+    # command to install dependencies
+  - pip install -r requirements.txt
+  - pip install tchappui-webdrivers
+
+before_script:
+  - install-webdrivers
+  - psql -c 'create database pure;' -U postgres
+
+
+services:
+    - postgresql
+
+
+env: DJANGO_SETTINGS_MODULE="config.settings"
+
+
+# command to run tests
+script:
+  - pytest --cov . # or py.test for Python versions 3.5 and below
+  - flake8
