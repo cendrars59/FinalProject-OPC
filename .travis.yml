@@ -1,3 +1,4 @@
+dist: bionic
 language: python
 python:
   - "3.8"
@@ -8,9 +9,14 @@ init:
     pipenv install --dev
 
 addons:
-  ## use chrome for Selenium 
+  postgresql: "12"
+  apt:
+    packages:
+    - postgresql-12
+    - postgresql-client-12
+  ## using chrome and firefox for Selenium 
   chrome: stable
-  firefox: stable
+  firefox: latest
 
 
 branches:
@@ -20,10 +26,10 @@ branches:
       
 
 # stuff to do before executing the script s
-install:
-    # command to install dependencies
-  #- pip install -r requirements.txt
-  - pipenv install tchappui-webdrivers
+# install:
+#     # command to install dependencies
+#   #- pip install -r requirements.txt
+#   # pipenv install tchappui-webdrivers
 
 before_script:
   - install-webdrivers
@@ -35,6 +41,15 @@ services:
 
 
 env: DJANGO_SETTINGS_MODULE="config.settings"
+global:
+  - PGPORT=5433
+  - PGUSER=travis
+  - SECRET_KEY='elvisisNotDe@d' 
+  - DATABASE='final'
+  - USERAPP='travis'
+  - PASSWORD='passw@rdMF'
+  - DEBUG='True'
+  
 
 
 # command to run tests

@@ -13,6 +13,8 @@ django-ckeditor = "*"
 install = "*"
 django-countries = "*"
 pillow = "*"
+flake8 = "*"
+tchappui-webdrivers = "*"
 
 [dev-packages]
 autopep8 = "*"
