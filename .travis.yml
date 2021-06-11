@@ -28,7 +28,7 @@ services:
 
 install:
   pipenv install
-  pipenv install --dev
+  
 
 
 env: DJANGO_SETTINGS_MODULE="config.settings"
