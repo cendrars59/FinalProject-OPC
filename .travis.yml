@@ -3,9 +3,6 @@ language: python
 python:
   - "3.8"
 
-init:
-    pip install pipenv
-    
 addons:
   postgresql: "12"
   apt:
@@ -14,22 +11,21 @@ addons:
     - postgresql-client-12
   ## using chrome and firefox for Selenium 
   chrome: stable
-  firefox: latest
-
+  firefox: latest   
 
 branches:
   only:
       - feature/continous
       - develop
       
-
-services:
-    - postgresql
-
 install:
   pipenv install
+  pipenv install tchappui-webdrivers
   
 
+before_script:
+  - install-webdrivers --path /usr/local/bin/
+  - psql -c 'create database final;' -U postgres
 
 env: DJANGO_SETTINGS_MODULE="config.settings"
 global:
@@ -41,9 +37,8 @@ global:
   - PASSWORD='passw@rdMF'
   - DEBUG='True'
 
-before_script:
-  - install-webdrivers --path /usr/local/bin/
-  - psql -c 'create database final;' -U postgres
+services:
+    - postgresql
 
 # command to run tests
 script:
