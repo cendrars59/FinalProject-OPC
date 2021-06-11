@@ -26,12 +26,6 @@ branches:
       
 
 
-install:
-  pipenv install tchappui-webdrivers
-
-before_script:
-  - install-webdrivers --path /usr/local/bin/
-  - psql -c 'create database pure;' -U postgres
 
 
 services:
@@ -47,7 +41,10 @@ global:
   - USERAPP='travis'
   - PASSWORD='passw@rdMF'
   - DEBUG='True'
-  
+
+before_script:
+  - install-webdrivers --path /usr/local/bin/
+  - psql -c 'create database final;' -U postgres
 
 # command to run tests
 script:
