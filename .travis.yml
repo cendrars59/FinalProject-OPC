@@ -5,9 +5,7 @@ python:
 
 init:
     pip install pipenv
-    pipenv install
-    pipenv install --dev
-
+    
 addons:
   postgresql: "12"
   apt:
@@ -25,11 +23,12 @@ branches:
       - develop
       
 
-
-
-
 services:
     - postgresql
+
+install:
+  pipenv install
+  pipenv install --dev
 
 
 env: DJANGO_SETTINGS_MODULE="config.settings"
