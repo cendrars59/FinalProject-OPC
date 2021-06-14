@@ -10,7 +10,7 @@ addons:
 
 branches:
   only:
-      - continuous
+      - feature/continous
 
 # stuff to do before executing the script
 install:
