@@ -13,5 +13,5 @@ def test_render_pages_views(client, param):
     # we use reverse function to pass the name of the urls to get the full path
     temp_url = urls.reverse(param)
     response = client.get(temp_url)
-    assert response.status_code == 200
+    assert response.status_code == 302
     assertTemplateUsed(response, f'pages/{param}.html')
