@@ -119,9 +119,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         null=True)
 
     photo = models.ImageField(
-         verbose_name="Photo du membre",
-         upload_to='member_photos/',
-         default='photos/default-user-avatar.png')
+        verbose_name="Photo du membre",
+        upload_to='member_photos/',
+        default='photos/default-user-avatar.png')
 
     
     # to restrict the application to only people having framing function in the club

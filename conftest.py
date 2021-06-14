@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from club.models import Category, EventType, Season, Division, Club
 from practice.models import Practice, Skill
+from users.models import CustomUser
 
 
 @pytest.fixture(params=["chrome1920", "chrome411"])
@@ -186,3 +187,26 @@ def skill1(db):
                                  description='Skill dummy description1')
     skill.save()
     return skill
+
+
+@pytest.fixture()
+def user1(db):
+    """
+        This fixture is used to generate a dummy valid event_type for Custom User model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    user = CustomUser.objects.create(
+        email='email@user1.com',
+        username='user1',
+        first_name = 'fn user1',
+        last_name = 'ln user1',
+        address1= '10 rue Parker Lewis',
+        address2= 'Somewhere',
+        zip_code=75000,
+        city='New York',
+        country = 'fr',
+        mobile_phone = '+336000000',
+        )
+    user.save()
+    return user
