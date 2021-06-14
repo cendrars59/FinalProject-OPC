@@ -9,7 +9,7 @@ addons:
     packages:
     - postgresql-12
     - postgresql-client-12
-  ## using chrome and firefox for Selenium 
+  ## using chrome and firefox for Selenium d
   chrome: stable
   firefox: latest   
 
