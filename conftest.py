@@ -196,7 +196,7 @@ def user1(db):
         The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
         test database
         """
-    user = CustomUser.objects.create(
+    user = CustomUser.objects.create_user(
         email='email@user1.com',
         username='user1',
         first_name = 'fn user1',
@@ -207,6 +207,6 @@ def user1(db):
         city='New York',
         country = 'fr',
         mobile_phone = '+336000000',
+        password = 'totor'
         )
-    user.save()
     return user

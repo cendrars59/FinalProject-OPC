@@ -9,7 +9,7 @@
     <div class="sidebar-content">
         <div class="sidebar-user">
             <img src="{{user.photo.url}}" class="img-fluid rounded-circle mb-2" alt="Jean-Claude Dus" />
-            <div class="fw-bold">{{user.first_name}} {{user.last_name}} </div>
+            <div id="user_fn_ln" class="fw-bold">{{user.first_name}} {{user.last_name}} </div>
             {% for item in user.involed_in_categories.all %}
 
                 {% if item.is_current == True %}
