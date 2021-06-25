@@ -21,7 +21,7 @@ install:
 
 before_script:
   - install-webdrivers
-  - psql -c 'create database final;' -U postgres
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 
 services:
