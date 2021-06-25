@@ -15,11 +15,13 @@ def driver_init(request):
     """
     if request.param == "chrome1920":
         options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
         options.add_argument("--window-size=1920,1080")
         web_driver = webdriver.Chrome(options=options)
         request.cls.browser = "Chrome1920x1080"
     if request.param == "chrome411":
         options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
         options.add_argument("--window-size=411,823")
         web_driver = webdriver.Chrome(options=options)
         request.cls.browser = "Chrome411x823"
