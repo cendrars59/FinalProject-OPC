@@ -22,7 +22,7 @@ install:
   - pip install tchappui-webdrivers
 
 before_script:
-  - wget https://chromedriver.storage.googleapis.com/92.0.4515.43/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip
   - sudo mv chromedriver /usr/local/bin
   - psql -c 'create database travis_ci_test;' -U postgres
