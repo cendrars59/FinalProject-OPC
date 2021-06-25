@@ -20,8 +20,8 @@ def driver_init(request):
     web_driver = webdriver.Chrome(options=options)
     request.cls.driver = web_driver
     yield
-    web_driver.quit()
-    web_driver.stop_client()
+    web_driver.close()
+
 
 
 @pytest.fixture()
