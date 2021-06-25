@@ -27,7 +27,8 @@ def driver_init(request):
     #     request.cls.browser = "Chrome411x823"
     request.cls.driver = web_driver
     yield
-    web_driver.close()
+    web_driver.quit()
+    web_driver.stop_client()
 
 
 @pytest.fixture()
