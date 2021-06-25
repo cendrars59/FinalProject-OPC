@@ -95,7 +95,7 @@ DATABASES = {
         'USER': config('USERAPP'),
         'PASSWORD': config('PASSWORD'),
         'HOST': '127.0.0.1',
-        'PORT': '5433',
+        'PORT': config('PORT'),
         'TEST': {
             'NAME': 'testdatabase',
         },
