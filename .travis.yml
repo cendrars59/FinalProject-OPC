@@ -22,7 +22,7 @@ install:
   - pip install tchappui-webdrivers
 
 before_script:
-  - install-webdrivers
+  - install-webdrivers --path /usr/local/bin
   - psql -c 'create database travis_ci_test;' -U postgres
 
 
