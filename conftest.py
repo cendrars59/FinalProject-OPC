@@ -171,6 +171,18 @@ def practice1(db):
     practice.save()
     return practice
 
+@pytest.fixture()
+def practice2(db):
+    """
+        This fixture is used to generate a dummy valid practice for Practice model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    practice = Practice.objects.create(label='practice2', description='practice dummy_description2')
+    practice.save()
+    return practice
+
+
 
 @pytest.fixture()
 def skill1(db):

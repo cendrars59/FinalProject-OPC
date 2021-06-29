@@ -54,11 +54,11 @@
                 </ul>
             </li>
             <li class="sidebar-item">
-                <a data-bs-target="#documentation" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                <a id="dbkt_link_menu" data-bs-target="#documentation" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle me-2 fas fa-fw fa-book"></i> <span class="align-middle">Base de connaissances</span>
                 </a>
                 <ul id="documentation" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="{% url 'practices-list' %}">Liste des exercices</a></li>
+                    <li class="sidebar-item"><a id="practices_list_link" class="sidebar-link" href="{% url 'practices-list' %}">Liste des exercices</a></li>
                 </ul>
             </li>
         </ul>
