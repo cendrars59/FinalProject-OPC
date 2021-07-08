@@ -14,27 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth import views as auth_views # Used to mamage the authentification views provided by Django
-from django.urls import path, include
+from django.urls import path
+from practice import views
 from django.conf.urls.static import static  # Used only for dev purpose.
 from django.conf import settings  # Used only for dev purpose.
-from pages import views, urls
-from practice import views, urls
-from training_session import views, urls
-from users import views
-from users.views import CustomUserUpdateView
-
+from training_session.views import (TrainingSessionListView,
+TrainingSessionDetailView, TrainingSessionCreateView, TrainingSessionUpdateView)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # template name is used in order to not use the default path set by Django to grab the template
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('edit/<pk>', CustomUserUpdateView.as_view(), name='user-edit'),
-    path('', include('pages.urls')),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('practices/', include('practice.urls')),
-    path('training_sessions/', include('training_session.urls')),
+    path('', TrainingSessionListView.as_view(), name='training_session-list'),
+    path('new/', TrainingSessionCreateView.as_view(), name='training_session-new'),
+    path('<pk>/', TrainingSessionDetailView.as_view(), name='training_session-detail'),
+    path('<pk>/update', TrainingSessionUpdateView.as_view(), name='training_session-update'),
 ]
 
 # In context of dev (Debug is set) the following configuration will be applied

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} Liste de sessions d'entrainement type {% endblock title%}
+{% block page-title %} Liste de sessions d'entrainement type {% endblock page-title %}
+{% block content-main %}
+<div class="card-body">
+    {% include "training_session/search_form.html" %}
+    {% include "training_session/table-list.html" %}
+    {% include "training_session/paginator.html" %}
+    <div class="my-5">&nbsp;</div>
+</div>
+
+{% endblock content-main %}

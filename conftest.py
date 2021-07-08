@@ -3,6 +3,7 @@ from selenium import webdriver
 from club.models import Category, EventType, Season, Division, Club
 from practice.models import Practice, Skill
 from users.models import CustomUser
+from training_session.models import TrainingSession
 
 
 @pytest.fixture()
@@ -13,7 +14,7 @@ def driver_init(request):
     Args:
         request ([type]): [description]
     """
-    
+
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
@@ -21,7 +22,6 @@ def driver_init(request):
     request.cls.driver = web_driver
     yield
     web_driver.close()
-
 
 
 @pytest.fixture()
@@ -171,6 +171,7 @@ def practice1(db):
     practice.save()
     return practice
 
+
 @pytest.fixture()
 def practice2(db):
     """
@@ -182,6 +183,17 @@ def practice2(db):
     practice.save()
     return practice
 
+
+@pytest.fixture()
+def practice3(db):
+    """
+        This fixture is used to generate a dummy valid practice for Practice model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    practice = Practice.objects.create(label='practice3', description='practice dummy_description1')
+    practice.save()
+    return practice
 
 
 @pytest.fixture()
@@ -198,6 +210,19 @@ def skill1(db):
 
 
 @pytest.fixture()
+def skill2(db):
+    """
+        This fixture is used to generate a dummy valid event_type for Season model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    skill = Skill.objects.create(label='Skill-dummy_label2',
+                                 description='Skill dummy description2')
+    skill.save()
+    return skill
+
+
+@pytest.fixture()
 def user1(db):
     """
         This fixture is used to generate a dummy valid event_type for Custom User model validation
@@ -207,14 +232,35 @@ def user1(db):
     user = CustomUser.objects.create_user(
         email='email@user1.com',
         username='user1',
-        first_name = 'fn user1',
-        last_name = 'ln user1',
-        address1= '10 rue Parker Lewis',
-        address2= 'Somewhere',
+        first_name='fn user1',
+        last_name='ln user1',
+        address1='10 rue Parker Lewis',
+        address2='Somewhere',
         zip_code=75000,
         city='New York',
-        country = 'fr',
-        mobile_phone = '+336000000',
-        password = 'totor'
-        )
+        country='fr',
+        mobile_phone='+336000000',
+        password='totor'
+    )
     return user
+
+
+@pytest.fixture()
+def training_session1(db, skill1, skill2, category2,
+ category3,practice1, practice2, practice3):
+    """
+        This fixture is used to generate a dummy valid event_type for TrainingSession model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    training_session = TrainingSession.objects.create(
+        label='training session dummy_label1',
+        description='training session dummy description1',
+        is_active=True,
+        minimum_number_of_people=10,
+        required_materials = 'training session dummy list of material'
+    )
+    training_session.skills.set([skill1.pk, skill2.pk]),
+    training_session.practices.set([practice1.pk, practice2.pk, practice3.pk])
+    training_session.categories.set([category2.pk, category3.pk])
+    return training_session
