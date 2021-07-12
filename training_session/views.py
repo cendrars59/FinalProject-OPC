@@ -2,7 +2,7 @@ from training_session.models import TrainingSession
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q  # used to generate search request
-from practice.forms import AddForm
+from training_session.forms import AddForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 

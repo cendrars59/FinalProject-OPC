@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Rechercher un entrainement type</h5>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'training_session-list' %}" method="get" class="row row-cols-md-auto align-items-center">
+            {% csrf_token %}
+            <div class="col-12">
+                <label class="visually-hidden" for="inlineFormInputName2">Titre de l'entrainement</label>
+                <input name="q" type="text" class="form-control mb-1 me-sm-1" id="inlineFormInputName2"
+                    placeholder="Entrainement 1 Baby rugby">
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+            </div>
+        </form>
+    </div>
+</div>

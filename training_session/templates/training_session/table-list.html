@@ -1,4 +1,4 @@
-<a id="new-practice-list" href="{% url 'practice-new' %}"><i class="align-middle fas fa-fw fa-plus"></i> Créer un nouvel exercice ici</a>
+<a id="new-practice-list" href="{% url 'training_session-new' %}"><i class="align-middle fas fa-fw fa-plus"></i> Créer une nouvelle session ici</a>
 <br>
 <table class="table table-striped">
     <thead>
@@ -13,8 +13,9 @@
         {% for session in object_list %}
         <tr>
             <td class="table-action practice-data-row">
-                <a href="{% url 'practice-detail' pk=practice.id %}"><i class="fas fa-fw fa-eye"></i></a>
-                <a href="{% url 'practice-update' pk=practice.id %}"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+                <a href="{% url 'training_session-detail' pk=session.id %}"><i class="fas fa-fw fa-eye"></i></a>
+                <a href="{% url 'training_session-update' pk=session.id %}"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+                <a href="#"><i class="align-middle fas fa-fw fa-calendar-alt"></i></i></a>
                 
             </td>
             <td>{{ session.label|title|safe }}</td>
@@ -27,8 +28,9 @@
             </td>
         </tr>
         {% empty %}
-        <p>Pas d'exercices de disponibles</p>
-        <p>Il serait temps de créer le votre</p>
+            <br>
+            <p>Pas de session de disponible</p>
+            <p>Il serait temps de créer la votre</p>
         {% endfor %}
     </tbody>
 </table>
