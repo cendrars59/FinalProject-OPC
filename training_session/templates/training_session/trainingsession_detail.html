@@ -45,6 +45,16 @@
                         <i class="align-middle fas fa-fw fa-pen"></i>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"  >
+                        <i class="align-middle fas fa-fw fa-calendar-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'training_session_pdf' pk=object.id %}"  >
+                        <i class="align-middle fas fa-fw fa-print"></i>
+                    </a>
+                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="vertical-icon-tab-1" role="tabpanel">
@@ -54,20 +64,21 @@
                 </div>
                 <div class="tab-pane" id="vertical-icon-tab-2" role="tabpanel">
                     <h4 class="tab-title">Compétences visées</h4>
-                    <table class="table table-striped">
-                        <tbody>
-                            {% for skill in object.skills.all %}
-                            <tr>
-                                <td>
-                                    {{skill.label|title|safe}}
-                                </td>
-                            </tr>
-                            {% empty %}
-                            <p>Pas de compétences associées à cette exercice</p>
-                            <p>Alors à quoi sert il ?</p>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    {% for skill in object.skills.all %}
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">{{skill.label|title|safe}}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">{{skill.description|truncatewords:50|safe}}</p>
+                                </div>
+                            </div>
+                        </div>    
+                    {% empty %}
+                        <p>Pas de compétences associées à cette exercice</p>
+                        <p>Alors à quoi sert il ?</p>
+                    {% endfor %}
                 </div>
                 <div class="tab-pane" id="vertical-icon-tab-3" role="tabpanel">
                     <h4 class="tab-title">Applicable pour les catégories suivantes</h4>
@@ -93,25 +104,21 @@
                 </div>
                 <div class="tab-pane" id="vertical-icon-tab-4" role="tabpanel">
                     <h4 class="tab-title">Liste des exercices</h4>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width:90%;">Exercices</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for practice in object.practices.all %}
-                            <tr>
-                                <td>
-                                    {{practice.label|title|safe}}
-                                </td>
-                            </tr>
-                            {% empty %}
-                                <p>Pas de catégories associées à cette session</p>
-                                <p>Alors à quoi sert il ?</p>
-                            {% endfor %} 
-                        </tbody>
-                    </table>
+                    {% for practice in object.practices.all %}
+                        <div class="col-12 col-md-6 col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">{{practice.label|title|safe}}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{practice.description|truncatewords:50|safe}}</p>
+                                    </div>
+                                </div>
+                        </div>
+                    {% empty %}
+                        <p>Pas de catégories associées à cette session</p>
+                        <p>Alors à quoi sert il ?</p>
+                    {% endfor %} 
                 </div>
             </div>
         </div>

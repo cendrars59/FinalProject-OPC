@@ -19,13 +19,15 @@ from practice import views
 from django.conf.urls.static import static  # Used only for dev purpose.
 from django.conf import settings  # Used only for dev purpose.
 from training_session.views import (TrainingSessionListView,
-TrainingSessionDetailView, TrainingSessionCreateView, TrainingSessionUpdateView)
+TrainingSessionDetailView, TrainingSessionCreateView, TrainingSessionUpdateView,
+training_session_pdf_view)
 
 urlpatterns = [
     path('', TrainingSessionListView.as_view(), name='training_session-list'),
     path('new/', TrainingSessionCreateView.as_view(), name='training_session-new'),
     path('<pk>/', TrainingSessionDetailView.as_view(), name='training_session-detail'),
     path('<pk>/update', TrainingSessionUpdateView.as_view(), name='training_session-update'),
+    path('training_session_pdf/<pk>',training_session_pdf_view, name='training_session_pdf'),
 ]
 
 # In context of dev (Debug is set) the following configuration will be applied
