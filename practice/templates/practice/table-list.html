@@ -13,8 +13,8 @@
         {% for practice in object_list %}
         <tr>
             <td class="table-action practice-data-row">
-                <a href="{% url 'practice-detail' pk=practice.id %}"><i class="fas fa-fw fa-eye"></i></a>
-                <a href="{% url 'practice-update' pk=practice.id %}"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+                <a href="{% url 'practice-detail' pk=practice.id %}" class="link-to-details" ><i class="fas fa-fw fa-eye"></i></a>
+                <a href="{% url 'practice-update' pk=practice.id %}" class="link-to-details"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
                 
             </td>
             <td>{{ practice.label|title|safe }}</td>

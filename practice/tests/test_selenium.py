@@ -28,8 +28,29 @@ class TestPracticesPages:
         assert "Liste d'exercices" in self.driver.title
 
 
+    def test_practice_detail(self, live_server,driver_init, user1, practice1, practice2):
+
+        self.driver.get(("%s" % (live_server.url)))
+        time.sleep(2)
+        # Verify the redirection to the login page if user is not connected 
+        assert self.driver.current_url == live_server.url +"/login/?next=/"
+        assert "Login" in self.driver.title
+        self.driver.find_element_by_name("username").send_keys(user1.email)
+        self.driver.find_element_by_name("password").send_keys("totor")
+        self.driver.find_element_by_tag_name("button").click()
+        time.sleep(2)
+        self.driver.find_element_by_id("dbkt_link_menu").click()
+        time.sleep(2)
+        self.driver.find_element_by_id("practices_list_link").click()
+        time.sleep(2)
+        assert self.driver.current_url == live_server.url +"/practices/"
+        list_of_items = self.driver.find_element_by_class_name("link-to-details")
+        # to_select = list_of_items.select_by_index(0)
+        print(list_of_items.text)
+
+
     
-    # def test_practice_creation(self, live_server,driver_init, user1, skill1, category1, category2, category3):
+    # def test_practice_creation(self, live_server,driver_init, user1, practice1):
 
     #     self.driver.get(("%s" % (live_server.url)))
     #     time.sleep(2)
