@@ -12,8 +12,7 @@ addons:
 
 branches:
   only:
-      - feature/continous
-      - feature/training-session
+      - develop
 
 # stuff to do before executing the script
 install:
