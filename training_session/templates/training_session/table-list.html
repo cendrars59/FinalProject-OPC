@@ -13,8 +13,8 @@
         {% for session in object_list %}
         <tr>
             <td class="table-action practice-data-row">
-                <a href="{% url 'training_session-detail' pk=session.id %}"><i class="fas fa-fw fa-eye"></i></a>
-                <a href="{% url 'training_session-update' pk=session.id %}"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+                <a id="{{ session.id|slugify|add:'_details'}}" href="{% url 'training_session-detail' pk=session.id %}"><i class="fas fa-fw fa-eye"></i></a>
+                <a id="{{ session.id|slugify|add:'_update'}}" href="{% url 'training_session-update' pk=session.id %}"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
                 <a href="#"><i class="align-middle fas fa-fw fa-calendar-alt"></i></i></a>
                 
             </td>
