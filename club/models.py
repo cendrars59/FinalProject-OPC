@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.expressions import F
 from django.utils.translation import get_language_bidi
+from django.db.models import Q 
+from datetime import date
 
 # Create your models here.
 
@@ -26,11 +28,11 @@ class Season(models.Model):
 
     code = models.CharField(null=False, unique=True, max_length=64)
     label = models.CharField(null=True, max_length=128)
-    description = models.TextField(null=True, default="Ajoutez ici la decription de las saison")
-    yob = models.IntegerField()
-    yoe = models.IntegerField()
+    description = models.TextField(null=True, default="Ajoutez ici la decription de la saison")
+    beg_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(null=False, default=True)
-    is_current = models.BooleanField(null=False, default=False)
+
 
     def __str__(self):
         """Return the label of the object instead of technical tag.
@@ -40,9 +42,10 @@ class Season(models.Model):
         return self.label
 
     @classmethod
-    def get_active_season_label(cls):
-        active_season = cls.objects.get(is_current=True)
-        return active_season.label
+    def get_active_season(cls):
+        today_date = date.today()
+        active_season = cls.objects.get(Q(beg_date >= today_date) & Q(end_date >= today_date))
+        return active_season
 
 
 
@@ -76,7 +79,6 @@ class CategoryClubBySeason(models.Model):
     label = models.CharField(unique=True, max_length=128)
     description = models.TextField(null=True, default="Ajoutez ici la decription de la catégorie")
     is_active = models.BooleanField(null=False, default=True)
-    is_current = models.BooleanField(null=False, default=False)
 
     class Meta:
         unique_together = [['club', 'category', 'season']]

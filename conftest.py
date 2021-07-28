@@ -4,6 +4,7 @@ from club.models import Category, EventType, Season, Division, Club
 from practice.models import Practice, Skill
 from users.models import CustomUser
 from training_session.models import TrainingSession
+from training_plan.models import TrainingPlan
 
 
 @pytest.fixture()
@@ -129,7 +130,8 @@ def season1(db):
         test database
         """
     season = Season.objects.create(code='Season-Dummy-Code', label='Season-dummy_label',
-                                   description='Season dummy description', yob=2020, yoe=2021)
+                                   description='Season dummy description', beg_date='2021-09-01',
+                                    end_date='2022-08-31')
     season.save()
     print(season.pk)
     return season
@@ -143,7 +145,8 @@ def season2(db):
         test database
         """
     season = Season.objects.create(code='Season-Dummy-Code2', label='Season-dummy_label2',
-                                   description='Season dummy description2', yob=2021, yoe=2022)
+                                   description='Season dummy description2', beg_date='2020-09-01',
+                                    end_date='2021-08-31')
     season.save()
     return season
 
@@ -264,3 +267,23 @@ def training_session1(db, skill1, skill2, category2,
     training_session.practices.set([practice1.pk, practice2.pk, practice3.pk])
     training_session.categories.set([category2.pk, category3.pk])
     return training_session
+
+
+@pytest.fixture()
+def training_plan1(db, training_session1, category2, user1):
+    """
+        This fixture is used to generate a dummy valid event_type for TrainingSession model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    training_plan = TrainingPlan.objects.create(
+        label='training plan dummy_label1',
+        description='training plan dummy description1',
+        category = category2,
+        training_session = training_session1,
+        start_date_time = '2021-09-13 14:00:00',
+        required_materials = 'Un tutu et un chapeau pointu',
+        duration_in_minutes = 45
+    )
+    training_plan.attenders_list.set([user1.pk])
+    return training_plan

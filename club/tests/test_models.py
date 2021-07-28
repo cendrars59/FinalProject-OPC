@@ -61,10 +61,10 @@ def test_season_object_creation_according_model(season1):
     assert season1.code == 'Season-Dummy-Code'
     assert season1.label == 'Season-dummy_label'
     assert season1.description == 'Season dummy description'
-    assert season1.yob == 2020
-    assert season1.yoe == 2021
+    assert season1.beg_date == '2021-09-01'
+    assert season1.end_date == '2022-08-31'
     assert season1.is_active == True
-    assert season1.is_current == False
+   # assert season1.is_current == False
     assert str(season1) == season1.label
 
 

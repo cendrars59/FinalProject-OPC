@@ -6,7 +6,7 @@ from ckeditor.widgets import CKEditorWidget
 class AddForm(forms.ModelForm):
     """
     class in order to manage the adding of a
-    new practice 
+    new session to plan 
     """
     
     class Meta:

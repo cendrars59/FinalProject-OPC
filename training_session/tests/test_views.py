@@ -53,10 +53,10 @@ def test_render_training_session_detailed_view(client, user1, training_session1)
     response = client.get(path)
     assert response.status_code == 200
 
-# def test_should_use_correct_template_to_render_detailed_view(client, practice1, user1):
+# def test_should_use_correct_template_to_render_detailed_view(client, training_session1, user1):
 #     client.force_login(user1)
-#     response = client.get(f'practices/{practice1.id}')
-#     assertTemplateUsed(response, 'practice/practice_detail.html')
+#     response = client.get(f'training_sessions/{training_session1.id}')
+#     assertTemplateUsed(response, 'training_session/trainingsession_detail.html')
 
 
 @pytest.mark.django_db

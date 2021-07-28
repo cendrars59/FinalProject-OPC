@@ -21,6 +21,7 @@ from django.conf import settings  # Used only for dev purpose.
 from pages import views, urls
 from practice import views, urls
 from training_session import views, urls
+from training_plan import views, urls
 from users import views
 from users.views import CustomUserUpdateView
 
@@ -35,6 +36,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('practices/', include('practice.urls')),
     path('training_sessions/', include('training_session.urls')),
+    path('training_plans/', include('training_plan.urls')),
 ]
 
 # In context of dev (Debug is set) the following configuration will be applied
