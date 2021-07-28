@@ -91,22 +91,6 @@ class CategoryClubBySeason(models.Model):
         return self.label
 
 
-# class Role(models.Model):  To move in model members
-#
-#    code = models.CharField(unique=True, max_length=32)
-#    label = models.CharField(unique=True, max_length=128)
-#    description = models.TextField(null=True, default="Ajoutez ici la decription du rôle")
-#    is_active = models.BooleanField(null=False, default=True)
-    # missing for the moment the logo of the catgegory
-
-#    def __str__(self):
-#        """Return the label of the object instead of technical tag.
-#        Returns:
-#            String: Name of the role
-#        """
-#        return self.label
-
-
 class EventType(models.Model):
 
     code = models.CharField(unique=True, max_length=32)

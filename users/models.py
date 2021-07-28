@@ -5,6 +5,7 @@ from django_countries.fields import CountryField # About https://pypi.org/projec
 from django.core import validators
 from django.db import models
 from club.models import CategoryClubBySeason, Season
+import uuid
 
 class CustomUserManager(BaseUserManager):
 
@@ -35,7 +36,20 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
+class Role(models.Model):  
 
+   code = models.UUIDField(default=uuid.uuid4)
+   label = models.CharField(unique=True, max_length=128)
+   description = models.TextField(null=True, default="Ajoutez ici la decription du rôle")
+   is_active = models.BooleanField(null=False, default=True)
+
+
+   def __str__(self):
+       """Return the label of the object instead of technical tag.
+       Returns:
+           String: Name of the role
+       """
+       return self.label
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
