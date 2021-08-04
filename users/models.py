@@ -4,7 +4,7 @@ from django.core.validators import RegexValidator
 from django_countries.fields import CountryField # About https://pypi.org/project/django-countries/
 from django.core import validators
 from django.db import models
-from club.models import CategoryClubBySeason, Season
+from club.models import Season, Club, Category
 import uuid
 
 class CustomUserManager(BaseUserManager):
@@ -42,6 +42,7 @@ class Role(models.Model):
    label = models.CharField(unique=True, max_length=128)
    description = models.TextField(null=True, default="Ajoutez ici la decription du rôle")
    is_active = models.BooleanField(null=False, default=True)
+   is_manager = models.BooleanField(null=False, default=True)
 
 
    def __str__(self):
@@ -149,7 +150,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # If the value is set to false, user will not be allowed to sign in.
     is_active = models.BooleanField(default=True)
 
-    involed_in_categories = models.ManyToManyField(CategoryClubBySeason, blank=True, null=True)
+    has_roles_in_categories_in_clubs = models.ManyToManyField(Club, blank=True, null=True, through='InvolvedAsICategoryForSeason')
+    seasons = models.ManyToManyField(Season, blank=True, null=True, through='InvolvedAsICategoryForSeason')
+    categories = models.ManyToManyField(Category, blank=True, null=True, through='InvolvedAsICategoryForSeason')
+    roles = models.ManyToManyField(Role, blank=True, null=True, through='InvolvedAsICategoryForSeason')
     
     objects = CustomUserManager()
     
@@ -162,8 +166,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.first_name
 
     def __string__(self):
-        # Returns the short name for the user.
-        return self.username
+        user = f"{self.first_name} - {self.last_name}"
+        return user
     
 
     USERNAME_FIELD = 'email'
@@ -181,5 +185,28 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('user-edit', kwargs={'pk' : self.pk})
+
+    
+class InvolvedAsICategoryForSeason(models.Model):
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    season = models.ForeignKey(Season,verbose_name='Saison', on_delete=models.CASCADE)
+    member = models.ForeignKey(CustomUser, verbose_name='Membre', on_delete=models.CASCADE)
+    category= models.ForeignKey(Category, verbose_name='Catégorie', on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    license_number = models.TextField(verbose_name='Numéro de licence',
+    null=True, default="Ajoutez ici la decription de la catégorie")
+    license_is_paid = models.BooleanField(verbose_name='License payée', default=False)
+    is_active = models.BooleanField(null=False, default=True)
+
+    def __string__(self):
+        name = f"{self.club} - {self.season} - {self.member} - {self.category}"
+        return name 
+
+    class Meta:
+        unique_together = [['club', 'season', 'member', 'category', 'role']]
+
+
+
+
 
     
