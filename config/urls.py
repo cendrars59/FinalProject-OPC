@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth import views as auth_views # Used to mamage the authentification views provided by Django
+from django.contrib.auth import views as auth_views  # Used to mamage the authentification views provided by Django
 from django.urls import path, include
 from django.conf.urls.static import static  # Used only for dev purpose.
 from django.conf import settings  # Used only for dev purpose.
@@ -23,7 +23,7 @@ from practice import views, urls
 from training_session import views, urls
 from training_plan import views, urls
 from users import views
-from users.views import CustomUserUpdateView
+from users.views import CustomUserUpdateView, PlayerListView
 
 
 urlpatterns = [
@@ -37,6 +37,9 @@ urlpatterns = [
     path('practices/', include('practice.urls')),
     path('training_sessions/', include('training_session.urls')),
     path('training_plans/', include('training_plan.urls')),
+    path('players/<int:category_id>/<int:season_id>', PlayerListView.as_view(), name='players_list'),
+    # path('<int:season_id>/<int:category_id>/managers'),
+
 ]
 
 # In context of dev (Debug is set) the following configuration will be applied

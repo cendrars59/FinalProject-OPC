@@ -12,6 +12,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
+from users.models import CustomUser, Role, InvolvedAsICategoryForSeason
 
 
 # Create your views here.
@@ -41,9 +42,18 @@ class TrainingSessionListView(LoginRequiredMixin, ListView):
             object_list = TrainingSession.objects.all()  # In this case the query is empty
         return object_list
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        user = self.request.user
+        context['categories'] = InvolvedAsICategoryForSeason.objects.filter(member_id=user.id)
+        context['user'] = user
+        return context
+
+
 class TrainingSessionDetailView(LoginRequiredMixin, DetailView):
 
     model = TrainingSession
+
 
 class TrainingSessionCreateView(LoginRequiredMixin, CreateView):
 
@@ -51,16 +61,18 @@ class TrainingSessionCreateView(LoginRequiredMixin, CreateView):
     form_class = AddForm
     success_url = '/training_sessions/'
 
+
 class TrainingSessionUpdateView(LoginRequiredMixin, UpdateView):
 
     model = TrainingSession
     form_class = AddForm
     success_url = '/training_sessions/'
 
+
 @login_required
 def training_session_pdf_view(request, *args, **kwargs):
-    # View generating the pdf proving detailed information about the traing session 
-    # View is built upon the following sources 
+    # View generating the pdf proving detailed information about the traing session
+    # View is built upon the following sources
     # https://www.youtube.com/watch?v=J3MuH6xaDjI&list=WL&index=1
     # https://xhtml2pdf.readthedocs.io/en/latest/usage.html#using-xhtml2pdf-in-django
     pk = kwargs.get('pk')
@@ -75,8 +87,8 @@ def training_session_pdf_view(request, *args, **kwargs):
 
     # create a pdf
     pisa_status = pisa.CreatePDF(
-       html, dest=response)
+        html, dest=response)
     # if error then show some funy view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response

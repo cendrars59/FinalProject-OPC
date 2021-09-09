@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.expressions import F
 from django.utils.translation import get_language_bidi
-from django.db.models import Q 
+from django.db.models import Q
 from datetime import date
 
 # Create your models here.
@@ -33,7 +33,6 @@ class Season(models.Model):
     end_date = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(null=False, default=True)
 
-
     def __str__(self):
         """Return the label of the object instead of technical tag.
         Returns:
@@ -43,10 +42,10 @@ class Season(models.Model):
 
     @classmethod
     def get_active_season(cls):
+        '''Class method in order to retrieve the current active season'''
         today_date = date.today()
-        active_season = cls.objects.get(Q(beg_date >= today_date) & Q(end_date >= today_date))
-        return active_season
-
+        active_season = cls.objects.filter(beg_date__lte=today_date).filter(end_date__gte=today_date)
+        return active_season[0]
 
 
 class Club(models.Model):

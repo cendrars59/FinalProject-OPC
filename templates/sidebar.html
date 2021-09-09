@@ -10,11 +10,13 @@
         <div class="sidebar-user">
             <img src="{{user.photo.url}}" class="img-fluid rounded-circle mb-2" alt="Jean-Claude Dus" />
             <div id="user_fn_ln" class="fw-bold">{{user.first_name}} {{user.last_name}} </div>
+            <div> {{user}} </div>
+            <div> {{active_season.label}}</div>
             {% for item in user.categories.all %}
 
-                {% if item.is_current == True %}
-                     <small> {{item.label}} </small>
-                {% endif %}
+            {% if item.is_current == True %}
+            <small> {{item.label}} </small>
+            {% endif %}
 
             {% endfor %}
         </div>
@@ -36,7 +38,8 @@
                     </li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Entrainements</a>
                     </li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Joueurs</a>
+                    <li class="sidebar-item"><a class="sidebar-link"
+                            href="{% url 'players_list' category_id=item.id season_id=active_season.id  %}">Joueurs</a>
                     </li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">Dirigeants
                             et éducateurs</a></li>
@@ -54,12 +57,16 @@
                 </ul>
             </li>
             <li class="sidebar-item">
-                <a id="dbkt_link_menu" data-bs-target="#documentation" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle me-2 fas fa-fw fa-book"></i> <span class="align-middle">Base de connaissances</span>
+                <a id="dbkt_link_menu" data-bs-target="#documentation" data-bs-toggle="collapse"
+                    class="sidebar-link collapsed">
+                    <i class="align-middle me-2 fas fa-fw fa-book"></i> <span class="align-middle">Base de
+                        connaissances</span>
                 </a>
                 <ul id="documentation" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a id="practices_list_link" class="sidebar-link" href="{% url 'practices-list' %}">Liste des exercices</a></li>
-                    <li class="sidebar-item"><a id="trainingsession_list_link" class="sidebar-link" href="{% url 'training_session-list' %}">Liste entrainements types</a></li>
+                    <li class="sidebar-item"><a id="practices_list_link" class="sidebar-link"
+                            href="{% url 'practices-list' %}">Liste des exercices</a></li>
+                    <li class="sidebar-item"><a id="trainingsession_list_link" class="sidebar-link"
+                            href="{% url 'training_session-list' %}">Liste entrainements types</a></li>
                 </ul>
             </li>
         </ul>
