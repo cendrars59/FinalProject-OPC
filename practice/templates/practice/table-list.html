@@ -1,3 +1,6 @@
+<a id="new-practice-list" href="{% url 'practice-new' %}"><i class="align-middle fas fa-fw fa-plus"></i> Créer un nouvel
+    exercice ici</a>
+<br>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -8,10 +11,27 @@
         </tr>
     </thead>
     <tbody>
-        {% for item in object_list %}
-        <p>To do</p>
+        {% for practice in object_list %}
+        <tr>
+            <td class="table-action practice-data-row">
+                <a id="{{ practice.id|slugify|add:'_details'}}" href="{% url 'practice-detail' pk=practice.id %}"
+                    class="link-to-details"><i class="fas fa-fw fa-eye"></i></a>
+                <a id="{{ practice.id|slugify|add:'_update'}}" href="{% url 'practice-update' pk=practice.id %}"
+                    class="link-to-details"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+
+            </td>
+            <td>{{ practice.label|title|safe }}</td>
+
+            <td>{% for category in practice.categories.all %}
+                {{category.label|title|safe}}
+                {% empty %}
+                Non définie
+                {% endfor %}
+            </td>
+        </tr>
         {% empty %}
-        <p>Pas de résultat pour cette recherche</p>
+        <p>Pas d'exercices de disponibles</p>
+        <p>Il serait temps de créer le votre</p>
         {% endfor %}
     </tbody>
 </table>
