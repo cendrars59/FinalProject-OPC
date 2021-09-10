@@ -40,14 +40,6 @@ class CustomUserUpdateView(LoginRequiredMixin, UpdateView):
               'mobile_phone', 'phone_for_whatsapp', 'about', 'photo', 'has_roles_in_categories_in_clubs']
     template_name = 'users/user_edit.html'
 
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        current_season = Season.get_active_season()
-        print(current_season.label)
-        context["active_season"] = Season.get_active_season()
-        return context
-
 
 class PlayerListView(LoginRequiredMixin, ListView):
     model = InvolvedAsICategoryForSeason
@@ -56,12 +48,6 @@ class PlayerListView(LoginRequiredMixin, ListView):
 
     # see example at the following URL
     # https://learndjango.com/tutorials/django-search-tutorial
-
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        context["active_season"] = Season.get_active_season()
-        return context
 
     def get_queryset(self, *args, **kwagrs):
         """[summary]
@@ -72,6 +58,7 @@ class PlayerListView(LoginRequiredMixin, ListView):
             for the current season according data inuput
             or all players belonging to the category for the current season if no query 
         """
+        # Retrieveing the both values path in the parameters
         seaid = kwagrs["season_id"]
         catid = kwagrs["category_id"]
 
@@ -87,12 +74,21 @@ class PlayerListView(LoginRequiredMixin, ListView):
         return object_list
 
     def get(self, request, *args, **kwagrs):
+        # https://newbedev.com/pass-url-argument-to-listview-queryset
+        """The purpose is to get the list of players for the active season and 
+        the selected category for a get request 
+
+        Args:
+            request ([type]): [description]
+            category_id : Category id passed as argument in the url 
+            season_id : Season id passed as argument in the url 
+        Returns:
+            [type]: [description]
+        """
         seaid = kwagrs["season_id"]
         catid = kwagrs["category_id"]
         self.object_list = InvolvedAsICategoryForSeason.objects.filter(
-            category=catid).filter(season=seaid)
+            category=catid).filter(season=seaid).exclude(is_player=False)
 
-        # in both cases
-        print(self.object_list)
         context = self.get_context_data()
         return self.render_to_response(context)

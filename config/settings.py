@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'config.context_processors.sidebar',
             ],
         },
     },
@@ -163,7 +164,7 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# See documenation here 
+# See documenation here
 # https://docs.djangoproject.com/en/3.2/ref/settings/#logging
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'

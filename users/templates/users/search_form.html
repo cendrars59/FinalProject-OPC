@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Recherche</h5>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'practices-list' %}" method="get" class="row row-cols-md-auto align-items-center">
+            {% csrf_token %}
+            <div class="col-12">
+                <label class="visually-hidden" for="inlineFormInputName2">Nom d'un joueur</label>
+                <input name="q" type="text" class="form-control mb-1 me-sm-1" id="inlineFormInputName2"
+                    placeholder="Elvis Presley">
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+            </div>
+        </form>
+    </div>
+</div>

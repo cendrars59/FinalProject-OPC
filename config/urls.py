@@ -38,7 +38,7 @@ urlpatterns = [
     path('training_sessions/', include('training_session.urls')),
     path('training_plans/', include('training_plan.urls')),
     path('players/<int:category_id>/<int:season_id>', PlayerListView.as_view(), name='players_list'),
-    # path('<int:season_id>/<int:category_id>/managers'),
+    # path('managers/<int:season_id>/<int:category_id>/'),
 
 ]
 

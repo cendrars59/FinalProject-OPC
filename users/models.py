@@ -200,6 +200,7 @@ class InvolvedAsICategoryForSeason(models.Model):
                                       null=True, default="Non défine")
     license_is_paid = models.BooleanField(verbose_name='License payée', default=False)
     is_active = models.BooleanField(null=False, default=True)
+    is_player = models.BooleanField(null=False, default=True)
 
     def __string__(self):
         name = f"{self.club} - {self.season} - {self.member} - {self.category}"
