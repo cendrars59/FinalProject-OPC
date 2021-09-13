@@ -5,31 +5,7 @@ from django.views.generic import ListView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
-
-
-# @login_required
-# def update_user(request):
-
-#     template_name ='users/user_edit.html'
-
-#     if request.method == 'POST':
-#         u_form = UpdateUserForm(request.POST, instance=request.user)
-#         #cu_form = CustomUserUpdateForm(request.POST, request.FILES,
-#         #instance=request.user.user)
-#         if u_form.is_valid():
-#             u_form.save()
-#             #cu_form.save()
-#     else:
-#         print("Trop con cherche un peu")
-#         u_form = UpdateUserForm(instance=request.user)
-#         #cu_form = CustomUserUpdateForm(instance=request.user.user)
-
-#     context = {
-#         'u_form': u_form,
-#         #'cu_form': cu_form
-#     }
-
-#     return render(request, template_name, context)
+from django.db.models import Q  # used to generate search request
 
 
 class CustomUserUpdateView(LoginRequiredMixin, UpdateView):
@@ -45,6 +21,7 @@ class PlayerListView(LoginRequiredMixin, ListView):
     model = InvolvedAsICategoryForSeason
     paginate_by = 10
     template_name = 'users/PlayersListCatSeason.html'
+    success_url = 'players_list'
 
     # see example at the following URL
     # https://learndjango.com/tutorials/django-search-tutorial
@@ -61,13 +38,12 @@ class PlayerListView(LoginRequiredMixin, ListView):
         # Retrieveing the both values path in the parameters
         seaid = kwagrs["season_id"]
         catid = kwagrs["category_id"]
+        query = self.request.GET.get('q')
+        if query is not None:
 
-        if catid is not None:
-
-            print("totor")
-            # object_list = InvolvedAsICategoryForSeason.objects.filter(
-            #     Q(label__icontains=query) | Q(description__icontains=query)
-            # )
+            object_list = InvolvedAsICategoryForSeason.objects.filter(
+                Q(first_name__icontains=query) | Q(last_name__icontains=query)
+            )
 
         else:
             object_list = InvolvedAsICategoryForSeason.objects.all()  # In this case the query is empty

@@ -1,0 +1,38 @@
+<div class="card-body">
+    <table id="datatables-clients" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Licence</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in object_list %}
+            <tr>
+                <td><img src="{{item.member.photo.url}}" width="60" height="60" class="rounded-circle my-n1"
+                        alt="Avatar">
+                </td>
+                <td>{{ item.member.first_name }}</td>
+                <td>{{ item.member.last_name }}</td>
+                <td>{{ item.member.email }}</td>
+                {% if item.mobile_phone != '' %}
+                <td>{{ item.member.mobile_phone }}</td>
+                {% else %}
+                <td>Non renseigné</td>
+                {% endif %}
+                {% if item.license_is_paid %}
+                <td><span class="badge bg-success">Validée</span></td>
+                {% else %}
+                <td><span class="badge bg-warning">Non validée</span></td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <td>Aucune personne pour cette liste</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

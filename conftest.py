@@ -28,10 +28,10 @@ def driver_init(request):
 @pytest.fixture()
 def club1(db):
     """
-        This fixture is used to generate a dummy valid club for Club model validation
-        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
-        test database
-        """
+    This fixture is used to generate a dummy valid club for Club model validation
+    The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+    test database
+    """
     club = Club.objects.create(code='code-club1', label='club dummy_label1',
                                description='club dummy description1',
                                address='Address club 1',
@@ -133,7 +133,6 @@ def season1(db):
                                    description='Season dummy description', beg_date='2021-09-01',
                                    end_date='2022-08-31')
     season.save()
-    print(season.pk)
     return season
 
 

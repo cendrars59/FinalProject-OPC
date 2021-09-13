@@ -36,11 +36,13 @@
                                 <i class="align-middle fas fa-cog"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <a id="profil_url" class="dropdown-item" href="{% url 'user-edit' pk=user.id %}"><i class="align-middle me-1 fas fa-fw fa-user"></i>
+                                <a id="profil_url" class="dropdown-item" href="{% url 'user-edit' pk=user.id %}"><i
+                                        class="align-middle me-1 fas fa-fw fa-user"></i>
                                     Modifiez votre profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a id="logout_url" class="dropdown-item" href="{% url 'logout' %}"><i
-                                        class="align-middle me-1 fas fa-fw fa-arrow-alt-circle-right"></i>Vous déconnectez</a>
+                                        class="align-middle me-1 fas fa-fw fa-arrow-alt-circle-right"></i>Vous
+                                    déconnectez</a>
                             </div>
                         </li>
                     </ul>
