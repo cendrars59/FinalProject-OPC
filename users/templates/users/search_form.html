@@ -3,7 +3,8 @@
         <h5 class="card-title">Recherche</h5>
     </div>
     <div class="card-body">
-        <form action="{% url 'practices-list' %}" method="get" class="row row-cols-md-auto align-items-center">
+        <form action="{% url 'players_list' category_id=category_id  season_id=active_season.id %}" method="get"
+            class="row row-cols-md-auto align-items-center">
             {% csrf_token %}
             <div class="col-12">
                 <label class="visually-hidden" for="inlineFormInputName2">Nom d'un joueur</label>

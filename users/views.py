@@ -36,35 +36,44 @@ class PlayerListView(LoginRequiredMixin, ListView):
             or all players belonging to the category for the current season if no query 
         """
         # Retrieveing the both values path in the parameters
-        seaid = kwagrs["season_id"]
         catid = kwagrs["category_id"]
+        seaid = kwagrs["season_id"]
         query = self.request.GET.get('q')
         if query is not None:
 
+            print(query)
             object_list = InvolvedAsICategoryForSeason.objects.filter(
                 Q(first_name__icontains=query) | Q(last_name__icontains=query)
             )
 
         else:
-            object_list = InvolvedAsICategoryForSeason.objects.all()  # In this case the query is empty
-        return object_list
+            self.object_list = InvolvedAsICategoryForSeason.objects.filter(
+                category=catid).filter(season=seaid).exclude(is_player=False)  # In this case the query is empty
+        return self.object_list
 
     def get(self, request, *args, **kwagrs):
         # https://newbedev.com/pass-url-argument-to-listview-queryset
-        """The purpose is to get the list of players for the active season and 
-        the selected category for a get request 
+        """The purpose is to get the list of players for the active season and
+        the selected category for a get request
 
         Args:
             request ([type]): [description]
-            category_id : Category id passed as argument in the url 
-            season_id : Season id passed as argument in the url 
+            category_id : Category id passed as argument in the url
+            season_id : Season id passed as argument in the url
         Returns:
             [type]: [description]
         """
         seaid = kwagrs["season_id"]
         catid = kwagrs["category_id"]
-        self.object_list = InvolvedAsICategoryForSeason.objects.filter(
-            category=catid).filter(season=seaid).exclude(is_player=False)
 
         context = self.get_context_data()
+        context["category_id"] = catid
         return self.render_to_response(context)
+
+    # def get_context_data(self, request, **kwargs):
+
+    #     context = super().get_context_data(**kwargs)
+    #     catid = kwagrs["category_id"]
+
+    #     context["category_id"] = catid
+    #     return context

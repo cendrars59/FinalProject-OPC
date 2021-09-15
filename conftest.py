@@ -2,7 +2,7 @@ import pytest
 from selenium import webdriver
 from club.models import Category, EventType, Season, Division, Club
 from practice.models import Practice, Skill
-from users.models import CustomUser
+from users.models import CustomUser, InvolvedAsICategoryForSeason, Role
 from training_session.models import TrainingSession
 from training_plan.models import TrainingPlan
 
@@ -17,7 +17,7 @@ def driver_init(request):
     """
 
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
     web_driver = webdriver.Chrome(options=options)
     request.cls.driver = web_driver
@@ -98,16 +98,16 @@ def category3(db):
     return category
 
 
-# @pytest.fixture()
-# def role1(db):
-#     """
-#         This fixture is used to generate a dummy valid role for Role model validation
-#         The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the
-#         test database
-#         """
-#     role = Role.objects.create(code='Role-Dummy-Code', label='Role-dummy_label',
-#                                description='Role dummy description')
-#     return role
+@pytest.fixture()
+def role1(db):
+    """
+        This fixture is used to generate a dummy valid role for Role model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the
+        test database
+        """
+    role = Role.objects.create(label='Role-dummy_label',
+                               description='Role dummy description')
+    return role
 
 
 @pytest.fixture()
@@ -143,9 +143,23 @@ def season2(db):
         The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
         test database
         """
-    season = Season.objects.create(code='Season-Dummy-Code2', label='Season-dummy_label2',
-                                   description='Season dummy description2', beg_date='2020-09-01',
+    season = Season.objects.create(code='Season-Dummy-Code', label='Season-dummy_label',
+                                   description='Season dummy description', beg_date='2020-09-01',
                                    end_date='2021-08-31')
+    season.save()
+    return season
+
+
+@pytest.fixture()
+def season3(db):
+    """
+        This fixture is used to generate a dummy valid event_type for Season model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    season = Season.objects.create(code='Season-Dummy-Code3', label='Season-dummy_label3',
+                                   description='Season dummy description3', beg_date='2022-09-01',
+                                   end_date='2023-08-31')
     season.save()
     return season
 
@@ -245,6 +259,23 @@ def user1(db):
         password='totor'
     )
     return user
+
+
+@pytest.fixture()
+def user1_involved_in_season1_as_manager(db, category1, club1, season1, role1, user1):
+    """
+        This fixture is used to generate a dummy valid event_type for Custom User model validation
+        The db parameter is equivalent to  @pytest.mark.django_db allowing the access to the 
+        test database
+        """
+    involved_user = InvolvedAsICategoryForSeason.objects.create(
+        club=club1, season=season1, member=user1, category=category1, role=role1)
+    # involved_user.club.set([club1.pk])
+    # involved_user.season.set([season1.pk])
+    # involved_user.member.set([user1.pk])
+    # involved_user.category.set([category1.pk])
+    # involved_user.role.set([role1.pk])
+    return involved_user
 
 
 @pytest.fixture()

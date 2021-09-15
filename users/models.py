@@ -191,11 +191,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 class InvolvedAsICategoryForSeason(models.Model):
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    season = models.ForeignKey(Season, verbose_name='Saison', on_delete=models.CASCADE)
-    member = models.ForeignKey(CustomUser, verbose_name='Membre', on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, verbose_name='Catégorie', on_delete=models.CASCADE)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, null=True, on_delete=models.CASCADE)
+    season = models.ForeignKey(Season, null=True, verbose_name='Saison', on_delete=models.CASCADE)
+    member = models.ForeignKey(CustomUser, null=True, verbose_name='Membre', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, verbose_name='Catégorie', on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, null=True, on_delete=models.CASCADE)
     license_number = models.TextField(verbose_name='Numéro de licence',
                                       null=True, default="Non défine")
     license_is_paid = models.BooleanField(verbose_name='License payée', default=False)

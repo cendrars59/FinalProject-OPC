@@ -18,6 +18,9 @@ class PracticeListView(LoginRequiredMixin, ListView):
     # see example at the following URL
     # https://learndjango.com/tutorials/django-search-tutorial
 
+    # managing get & queryset function
+    # http://www.intelligent-d2.com/python/django/use-get-get_queryset-get_context_data-django/#:~:text=The%20get_queryset%20method%20is%20used%20whenever%20data%20is,view%20will%20retrieve%20all%20data%20from%20the%20database.
+
     def get_queryset(self):
         """[summary]
         Over ridded function in order to get results whatever the query is. 
@@ -37,22 +40,10 @@ class PracticeListView(LoginRequiredMixin, ListView):
             object_list = Practice.objects.all()  # In this case the query is empty
         return object_list
 
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        context["active_season"] = Season.get_active_season()
-        return context
-
 
 class PracticeDetailView(LoginRequiredMixin, DetailView):
 
     model = Practice
-
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        context["active_season"] = Season.get_active_season()
-        return context
 
 
 class PracticeCreateView(LoginRequiredMixin, CreateView):
@@ -61,21 +52,9 @@ class PracticeCreateView(LoginRequiredMixin, CreateView):
     form_class = AddForm
     success_url = '/practices/'
 
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        context["active_season"] = Season.get_active_season()
-        return context
-
 
 class PracticeUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Practice
     form_class = AddForm
     success_url = '/practices/'
-
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        context["active_season"] = Season.get_active_season()
-        return context
