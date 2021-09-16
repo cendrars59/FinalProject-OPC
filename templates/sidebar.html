@@ -34,7 +34,8 @@
                     <li class="sidebar-item"><a class="sidebar-link"
                             href="{% url 'players_list' category_id=item.category.id season_id=active_season.id  %}">Joueurs</a>
                     </li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Dirigeants
+                    <li class="sidebar-item"><a class="sidebar-link"
+                            href="{% url 'managers_list' category_id=item.category.id season_id=active_season.id  %}">Dirigeants
                             et éducateurs</a></li>
                 </ul>
             </li>

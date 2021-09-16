@@ -3,11 +3,10 @@
 
 
 {% block title %} Liste des managers {% endblock title%}
-{% block page-title %} Liste des dirigeants et éducateurs pour la saison {{active_season.label}} {% endblock page-title
-%}
+{% block page-title %} Liste des éducateurs pour la saison {{active_season.label}} {% endblock page-title %}
 {% block content-main %}
 <div class="card-body">
-    {% include "users/search_form.html" %}
+    {% include "users/search_form_manager.html" %}
     {% include "users/table-list.html" %}
     {% include "users/paginator.html" %}
     <div class="my-5">&nbsp;</div>
