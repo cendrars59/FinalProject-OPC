@@ -22,7 +22,7 @@ install:
 
 before_script:
     # as URL set the url of the driver version supported on Travis 
-  - wget https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/93.0.4577.63/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip
   - sudo mv chromedriver /usr/local/bin
   - psql -c 'create database travis_ci_test;' -U postgres
