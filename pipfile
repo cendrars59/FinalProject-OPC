@@ -17,6 +17,11 @@ flake8 = "*"
 tchappui-webdrivers = "*"
 reportlab = "*"
 xhtml2pdf = "*"
+jsonify = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+raven = "*"
+gunicorn = "*"
 
 [dev-packages]
 autopep8 = "*"

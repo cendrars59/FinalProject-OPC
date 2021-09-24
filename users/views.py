@@ -2,10 +2,18 @@ from django.shortcuts import render
 from .models import CustomUser, InvolvedAsICategoryForSeason
 from club.models import Season
 from django.views.generic import ListView, UpdateView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
-from django.db.models import Q  # used to generate search request
+from django.db.models import Q
+import json  # used to generate search request
+import jsonify
+from rest_framework import viewsets
+from rest_framework.parsers import JSONParser
+from django.http.response import JsonResponse
+from rest_framework import status
+from rest_framework.decorators import api_view
+from users.serializers import CustomUserSerializer
 
 
 class CustomUserUpdateView(LoginRequiredMixin, UpdateView):
@@ -57,6 +65,7 @@ class PlayerListView(LoginRequiredMixin, ListView):
         context = super().get_context_data()
         catid = self.kwargs["category_id"]
         context["category_id"] = catid
+        # context["qs_json"] = json.dumps(list(CustomUser.objects.values()))
         return context
 
 
@@ -71,12 +80,12 @@ class ManagerListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         """[summary]
-        Over ridded function in order to get results whatever the query is. 
+        Over ridded function in order to get results whatever the query is.
 
         Returns:
             InvolvedAsICategoryForSeason: returning a list of manegers belonging to a category
             for the current season according data inuput
-            or all managers belonging to the category for the current season if no query 
+            or all managers belonging to the category for the current season if no query
         """
         # Retrieveing the both values path in the parameters
         catid = self.kwargs["category_id"]
@@ -102,3 +111,14 @@ class ManagerListView(LoginRequiredMixin, ListView):
         catid = self.kwargs["category_id"]
         context["category_id"] = catid
         return context
+
+
+@api_view(['GET'])
+def autosuggest(request):
+    members_list = list()
+    if 'value' in request.GET:
+        members = CustomUser.objects.filter(
+            Q(first_name__icontains=request['value'] | Q(last_name__icontains=request['value'])))
+        for member in members:
+            members_list.append(member)
+        return jsonify(members_list)

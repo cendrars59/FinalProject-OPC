@@ -9,6 +9,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Admin &amp; Dashboard Template">
     <meta name="author" content="Bootlab">
 
+
     <title>{% block title %}Jojo 2000 {% endblock title %}</title>
 
     <link href="{% static 'dist/css/modern.css' %}" rel="stylesheet">
@@ -81,8 +82,11 @@
             </symbol>
         </defs>
     </svg>
+
     <script src="{% static '/dist/js/app.js' %}"></script>
 
+    {% block scripts %}
+    {% endblock scripts %}
 </body>
 
 </html>
