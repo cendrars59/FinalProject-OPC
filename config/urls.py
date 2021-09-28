@@ -22,8 +22,7 @@ from pages import views, urls
 from practice import views, urls
 from training_session import views, urls
 from training_plan import views, urls
-from users import views
-from users.views import CustomUserUpdateView, PlayerListView, ManagerListView, autosuggest
+from users.views import CustomUserUpdateView, PlayerListView, ManagerListView, GetMembersAPI
 from rest_framework import routers
 
 
@@ -40,7 +39,7 @@ urlpatterns = [
     path('training_plans/', include('training_plan.urls')),
     path('players/<int:category_id>/<int:season_id>', PlayerListView.as_view(), name='players_list'),
     path('managers/<int:category_id>/<int:season_id>/', ManagerListView.as_view(), name='managers_list'),
-    path('autosuggest/', autosuggest, name='autosuggest'),
+    path('autosuggest/', GetMembersAPI.as_view(), name='autosuggest'),
 
 
 ]

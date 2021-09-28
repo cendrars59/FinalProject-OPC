@@ -11,10 +11,8 @@ input_field.addEventListener('keyup', function (event) {
 
         console.log(input_length);
     } else {
-        fetch("autosuggest", {
-            method: "GET",
-            body: user_input
-        }).then(response => response.json())
+        fetch("autosuggest/"
+        ).then(response => response.json())
             .catch(error => console.log(error))
 
     }

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.views import APIView
 from .models import CustomUser, InvolvedAsICategoryForSeason
 from club.models import Season
 from django.views.generic import ListView, UpdateView
@@ -12,6 +13,7 @@ from rest_framework import viewsets
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from users.serializers import CustomUserSerializer
 
@@ -116,9 +118,18 @@ class ManagerListView(LoginRequiredMixin, ListView):
 @api_view(['GET'])
 def autosuggest(request):
     members_list = list()
-    if 'value' in request.GET:
+    if 'value' in request.POST:
         members = CustomUser.objects.filter(
             Q(first_name__icontains=request['value'] | Q(last_name__icontains=request['value'])))
         for member in members:
             members_list.append(member)
         return jsonify(members_list)
+
+
+class GetMembersAPI(APIView):
+
+    def get(self, request):
+        members = CustomUser.objects.all()
+        serialized = CustomUserSerializer(members, many=True)
+        response = Response(serialized.data)
+        return response
