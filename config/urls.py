@@ -39,7 +39,7 @@ urlpatterns = [
     path('training_plans/', include('training_plan.urls')),
     path('players/<int:category_id>/<int:season_id>', PlayerListView.as_view(), name='players_list'),
     path('managers/<int:category_id>/<int:season_id>/', ManagerListView.as_view(), name='managers_list'),
-    path('autosuggest/', GetMembersAPI.as_view(), name='autosuggest'),
+    path('<int:category_id>/<int:season_id>/autosuggest/', GetMembersAPI.as_view(), name='autosuggest'),
 
 
 ]
