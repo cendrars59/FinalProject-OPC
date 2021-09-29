@@ -6,10 +6,11 @@
         <form action="{% url 'managers_list' category_id=category_id  season_id=active_season.id %}" method="get"
             class="row row-cols-md-auto align-items-center">
             {% csrf_token %}
-            <div class="col-12">
-                <label class="visually-hidden" for="inlineFormInputName2">Nom d'un dirigeant ou éducateur</label>
-                <input name="q" type="text" class="form-control mb-1 me-sm-1" id="inlineFormInputName2"
-                    placeholder="Elvis Presley">
+            <div id='autocomplete' class="col-12 autocomplete">
+                <label class="visually-hidden " for="inlineFormInputName2">Nom d'un manager</label>
+                <input name="query" type="text" class="form-control mb-1 me-sm-1 autocomplete-input"
+                    placeholder="Entrer un nom ou un prénom">
+                <ul class="autocomplete-result-list"></ul>
             </div>
 
             <div class="col-12">
