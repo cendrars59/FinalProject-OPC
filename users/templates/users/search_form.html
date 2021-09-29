@@ -6,18 +6,11 @@
         <form action="{% url 'players_list' category_id=category_id  season_id=active_season.id %}" method="get"
             class="row row-cols-md-auto align-items-center">
             {% csrf_token %}
-            <div class="col-12">
-                <label class="visually-hidden" for="inlineFormInputName2">Nom d'un joueur</label>
-                <input id='players-search-input' name="q" type="text" class="form-control mb-1 me-sm-1"
+            <div id='autocomplete' class="col-12 autocomplete">
+                <label class="visually-hidden " for="inlineFormInputName2">Nom d'un joueur</label>
+                <input name="query" type="text" class="form-control mb-1 me-sm-1 autocomplete-input"
                     id="inlineFormInputName2" placeholder="Entrer un nom ou un prénom">
-                <!-- <div>
-                    <select multiple="" class="form-control">
-                        <option>Open this select menu</option>
-                        <option>One</option>
-                        <option>Two</option>
-                        <option>Three</option>
-                    </select>
-                </div> -->
+                <ul class="autocomplete-result-list"></ul>
             </div>
 
             <div class="col-12">

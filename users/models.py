@@ -172,7 +172,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         # Returns the short name for the user.
         return self.first_name
 
-    def __string__(self):
+    def __str__(self):
         user = f"{self.first_name} - {self.last_name}"
         return user
 

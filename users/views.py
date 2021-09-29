@@ -16,6 +16,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from users.serializers import CustomUserSerializer
+from rest_framework.renderers import JSONRenderer
 
 
 class CustomUserUpdateView(LoginRequiredMixin, UpdateView):
@@ -115,21 +116,26 @@ class ManagerListView(LoginRequiredMixin, ListView):
         return context
 
 
-@api_view(['GET'])
 def autosuggest(request):
-    members_list = list()
-    if 'value' in request.POST:
+    query = request.GET.get('query')
+    print(type(query))
+    payload = []
+    if query:
         members = CustomUser.objects.filter(
-            Q(first_name__icontains=request['value'] | Q(last_name__icontains=request['value'])))
+            Q(first_name__icontains=query) | Q(last_name__icontains=query)
+        )
         for member in members:
-            members_list.append(member)
-        return jsonify(members_list)
+            payload.append(member)
+
+        serialized = CustomUserSerializer(payload, many=True)
+
+    return JsonResponse({'status': 200, 'data': serialized.data})
 
 
-class GetMembersAPI(APIView):
+# class GetMembersAPI(APIView):
 
-    def get(self, request):
-        members = CustomUser.objects.all()
-        serialized = CustomUserSerializer(members, many=True)
-        response = Response(serialized.data)
-        return response
+#     def get(self, request):
+#         members = CustomUser.objects.all()
+#         serialized = CustomUserSerializer(members, many=True)
+#         response = Response(serialized.data)
+#         return response
