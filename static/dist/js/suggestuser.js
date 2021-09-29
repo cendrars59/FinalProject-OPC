@@ -25,14 +25,27 @@
 new Autocomplete('#autocomplete', {
 
     search: input => {
-        console.log(input)
         const url = `/autosuggest/?query=${input}`
         return new Promise(resolve => {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    resolve(data.data)
+                    let rez = []
+                    for (i = 0, size = data.list.length; i < size; i++) {
+                        let suggest = "";
+                        var item = data.list[i];
+                        suggest = item["first_name"] + " " + item["last_name"];
+                        if (item["first_name"].toLowerCase().includes(input.toLowerCase())) {
+                            rez.push(item["first_name"]);
+                        }
+                        if (item["last_name"].toLowerCase().includes(input.toLowerCase())) {
+                            rez.push(item["last_name"]);
+                        }
+
+
+                    }
+                    resolve([...new Set(rez)])
                 })
         })
     }

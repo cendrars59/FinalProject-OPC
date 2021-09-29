@@ -50,7 +50,7 @@ class PlayerListView(LoginRequiredMixin, ListView):
         season_id = self.kwargs["season_id"]
         category_id = self.kwargs["category_id"]
 
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('query')
         print(query)
         if query is not None:
             members = CustomUser.objects.filter(
@@ -93,7 +93,7 @@ class ManagerListView(LoginRequiredMixin, ListView):
         # Retrieveing the both values path in the parameters
         catid = self.kwargs["category_id"]
         seaid = self.kwargs["season_id"]
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('query')
         if query is not None:
 
             members = CustomUser.objects.filter(
@@ -129,7 +129,7 @@ def autosuggest(request):
 
         serialized = CustomUserSerializer(payload, many=True)
 
-    return JsonResponse({'status': 200, 'data': serialized.data})
+    return JsonResponse({'status': 200, 'list': serialized.data})
 
 
 # class GetMembersAPI(APIView):
